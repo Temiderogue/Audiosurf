@@ -86,8 +86,10 @@ public class Spawner : MonoBehaviour
 
     public void ChangeBoostPosition()
     {
-        _boostPosition.x = _lines[Random.Range(0, 2)];
+
+        _boostPosition.x = 0;
         _boostPosition.z += 50f;
+        //_compareArea.position.z = _boostPosition.z;
         _boostPoint.transform.position = _boostPosition;
     }
 }

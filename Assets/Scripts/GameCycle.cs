@@ -17,18 +17,23 @@ public class GameCycle : MonoBehaviour
     [SerializeField] private Text _playButton;
     [SerializeField] private Text _restartButton;
     [SerializeField] private Text _scoreText;
+    [SerializeField] private Text _backToMenu;
     [SerializeField] private Text _highScoreText;
+    [SerializeField] private Text _quit;
 
     private int _score;
+    public bool isGameStarted = false;
 
     private void Start()
     {
         if (!_isLoopStarted) 
         { 
             _scoreText.enabled = false;
+            _quit.enabled = true;
         }
         else 
         {
+            _quit.enabled = false;
             _scoreText.enabled = true;
             StartCoroutine(ScoreCount());
         }
@@ -36,6 +41,8 @@ public class GameCycle : MonoBehaviour
         _blackScreen.enabled = false;
         _restartButton.enabled = false;
         _highScoreText.enabled = false;
+        _backToMenu.enabled = false;
+        
     }
 
     public void StartGame()
@@ -46,34 +53,38 @@ public class GameCycle : MonoBehaviour
 
     public IEnumerator GameStart()
     {
-        _player.Speed = 5f;
+        Time.timeScale = 1f;
+        _quit.enabled = false;
+        isGameStarted = true;
+        _player.Speed = 0.1f;
         _scoreText.enabled = true;
         _playButton.enabled = false;
         _spawner.CreateCones();
         _spawner._isConeSpawned = true;
+        _quit.enabled = false;
         _animator.SetBool("StartGame", true);
         yield return new WaitForSeconds(2f);
         _animator.SetBool("StartGame", false);
         _animator.enabled = false;
+        
     }
 
-    public void Settings()
+    public void BackToMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
     public void ReloadLevel()
     {
-        _player.Speed = 5f;
+        _player.Speed = 0.1f;
         StartCoroutine(ScoreCount());
         Time.timeScale = 1;
         _scoreText.enabled = true;
         _isPlayerDead = false;
         SceneManager.LoadScene(1);
-    }
-
-    public void BackToStartMenu()
-    {
-        SceneManager.LoadScene(0);
     }
 
     public IEnumerator ScoreCount()
@@ -99,5 +110,7 @@ public class GameCycle : MonoBehaviour
         _highScoreText.text = "HighScore: " + Data.HighScore.ToString();
         _blackScreen.enabled = true;
         _restartButton.enabled = true;
+        _backToMenu.enabled = true;
+        _quit.enabled = true;
     }
 }

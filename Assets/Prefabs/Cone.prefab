@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Cone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &5182534267129230986
 Transform:
@@ -153,6 +153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: penta
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8a9fa319de1ca11498ad6a17da9c226e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a9fa319de1ca11498ad6a17da9c226e, type: 3}

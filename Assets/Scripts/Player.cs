@@ -83,10 +83,20 @@ public class Player : MonoBehaviour
             }
         }
 
+        
+    }
+
+    private void FixedUpdate()
+    {
+        /*
         Vector3 newPos = transform.position;
-        newPos.x = Mathf.Lerp(newPos.x, _firstLanePos + (_targetRow * _distance), Time.deltaTime * _slideSpeed);
-        newPos.z += Speed * Time.deltaTime;
+        newPos.x = Mathf.Lerp(newPos.x, _firstLanePos + (_targetRow * _distance),_slideSpeed);
+        newPos.z += Speed;
         transform.position = newPos;
+        */
+        
+        transform.Translate(Vector3.forward * Speed);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(_firstLanePos + (_targetRow * _distance), 0,transform.position.z), _slideSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -98,7 +108,7 @@ public class Player : MonoBehaviour
                 break;
             case "Boost":
                 _spawner.ChangeBoostPosition();
-                Speed += 2f;
+                Time.timeScale += 0.2f;
                 break;
             case "TriggerZone":
                 _spawner.ChangeBlockPosition();
